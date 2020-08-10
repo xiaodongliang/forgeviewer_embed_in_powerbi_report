@@ -5,9 +5,9 @@
 [![npm](https://img.shields.io/badge/npm-6.10.2-green.svg)](https://www.npmjs.com/)
 [![visual code](https://img.shields.io/badge/visual%20code-1.28.2-orange.svg)](https://code.visualstudio.com)
 
-![pbiviz](https://img.shields.io/badge/pbiviz-v2.5.0-green.svg)](https://www.npmjs.com/package/powerbi-visuals-tools)
+[![pbiviz](https://img.shields.io/badge/pbiviz-v2.5.0-green.svg)](https://www.npmjs.com/package/powerbi-visuals-tools)
 
-![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](https://forge.autodesk.com/en/docs/oauth/v2/overview/)
+[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](https://forge.autodesk.com/en/docs/oauth/v2/overview/)
 [![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](https://forge.autodesk.com/en/docs/data/v2/developers_guide/overview/)
 [![Viewer](https://img.shields.io/badge/Viewer-v7.23-green.svg)](https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/overview/)
 
