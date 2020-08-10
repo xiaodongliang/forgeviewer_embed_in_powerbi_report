@@ -30,8 +30,8 @@ This repository demonstrates how to embed Forge Viewer inside Power BI report by
 1. **Forge Account**: Learn how to create a Forge Account, activate subscription and create an app at [this tutorial](http://learnforge.autodesk.io/#/account/). Get _Forge client id_, _Forge client secret_.
 2.	Prepare a source model and translate with Forge web services by other Forge Viewer samples. Verify it can be loaded in a general web app successfully. Make a note with its URN.
 3.	Switch to the project [forge-model-properties-excel](./forge-model-properties-excel).  Install the packages
-4.	Input Forge client id, client secret, Forge bucket key, model urn in the environment or [config file](./config.js).
-5. In line 55 of [index.js](./index.js), ensure which properties you want to extract. The default are dbid and material. You may check the correct property name of your model firstly.
+4.	Input Forge client id, client secret, Forge bucket key, model urn in the environment or [config file](./forge-model-properties-excel/config.js).
+5. In line 55 of [index.js](./forge-model-properties-excel/index.js), ensure which properties you want to extract. The default are dbid and material. You may check the correct property name of your model firstly.
 6.	Run the script (or start debugging)
 ```Node index.js```
 7.	After a while, one excel file will be available in the root folder of the project. The time depends on the size of the model properties json. If large file, it may take more time.
