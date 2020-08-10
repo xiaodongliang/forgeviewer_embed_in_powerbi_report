@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/index.js",
+            "env": {
+                "FORGE_CLIENT_ID":"",
+                "FORGE_CLIENT_SECRET":"",
+                "FORGE_BUCKET_KEY":"xiaodong-old-svf-temporary-test",
+                "FORGE_MODEL_URN":"dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6eGlhb2Rvbmctb2xkLXN2Zi10ZW1wb3JhcnktdGVzdC9hZHZhbmNlZC5ydnQ"
+
+            }
+        }
+    ]
+}

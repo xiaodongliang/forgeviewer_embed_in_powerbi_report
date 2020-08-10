@@ -1,0 +1,26 @@
+{
+    "dataRoles": [
+        {
+            "displayName": "dbId",
+            "name": "dbid",
+            "kind": "Grouping"
+        },
+        {
+            "displayName": "material",
+            "name": "material",
+            "kind": "Grouping"
+        }
+    ],
+    "dataViewMappings": [
+        {
+            "table": {
+                "rows": {
+                    "for": {
+                        "in": "dbid"
+                    }
+                }
+            }
+        }
+    ] 
+
+}

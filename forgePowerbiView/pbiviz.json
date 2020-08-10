@@ -1,0 +1,28 @@
+{
+  "visual": {
+    "name": "PowerBI_ForgeViewer_Visual",
+    "displayName": "forgePowerbiView",
+    "guid": "forgePowerbiView4F623CD7FE44432EB2E71CF579A63B03",
+    "visualClassName": "PowerBI_ForgeViewer_Visual",
+    "version": "1.0.0",
+    "description": "",
+    "supportUrl": "",
+    "gitHubUrl": ""
+  },
+  "apiVersion": "2.5.0",
+  "author": {
+    "name": "",
+    "email": ""
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": [
+    "node_modules/powerbi-visuals-utils-dataviewutils/lib/index.js",
+    "node_modules/jquery/dist/jquery.min.js"
+  ],
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": "dependencies.json",
+  "stringResources": []
+}
