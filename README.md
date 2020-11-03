@@ -50,9 +50,9 @@ This repository demonstrates how to embed Forge Viewer inside Power BI report by
 
 ### Steps of building custom visual of Power BI
 
-1.	Follow the steps to [setup environment of PowerBI custom visual](https://powerbi.microsoft.com/en-us/developers/custom-visualization/). Note: install ***pbiviz 2.5.0***.
+1.	Follow the steps to [setup environment of PowerBI custom visual](https://powerbi.microsoft.com/en-us/developers/custom-visualization/). Note: install ***pbiviz 2.5.0***.  And install certification with the [help document](https://docs.microsoft.com/en-us/power-bi/developer/visuals/create-ssl-certificate). 
 
-        ```npm i -g powerbi-visuals-tools@2.5.0```
+        npm i -g powerbi-visuals-tools@2.5.0
 
 2.	Follow [the tutorial](https://powerbi.microsoft.com/en-us/developers/custom-visualization/) to create a new project of custom visual and test/debug it in PowerBI. 
 
