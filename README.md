@@ -5,6 +5,7 @@
 [![npm](https://img.shields.io/badge/npm-6.10.2-green.svg)](https://www.npmjs.com/)
 [![visual code](https://img.shields.io/badge/visual%20code-1.28.2-orange.svg)](https://code.visualstudio.com)
 
+[![node-typescript](https://img.shields.io/badge/nodejs-12.0.0-yellow.svg)](https://www.npmjs.com/package/@types/node/v/12.0.0)
 [![pbiviz](https://img.shields.io/badge/pbiviz-v2.5.0-green.svg)](https://www.npmjs.com/package/powerbi-visuals-tools)
 
 [![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](https://forge.autodesk.com/en/docs/oauth/v2/overview/)
@@ -56,14 +57,17 @@ This repository demonstrates how to embed Forge Viewer inside Power BI report by
 
 2.	Follow [the tutorial](https://powerbi.microsoft.com/en-us/developers/custom-visualization/) to create a new project of custom visual and test/debug it in PowerBI. 
 
+3. Ensure to [create an SSL certificate](https://docs.microsoft.com/en-us/power-bi/developer/visuals/create-ssl-certificate)
+
 3.	Switch to the project [forgePowerbiView](./forgePowerbiView). Install the packages.
 
-4. Two more functions are not defined in the latest version of @types/forge-viewer.  Manually append them in the code below. you can  replace the default ts file by [upated-forge-viewer-index.d.ts](./upated-forge-viewer-index.d.ts)
+4. Two more functions of new version of Forge Viewer have not defined in the latest version of @types/forge-viewer.  Manually append them in the code below. you can  replace the default ts file by [upated-forge-viewer-index.d.ts](./upated-forge-viewer-index.d.ts)
+
         ```node_modules/@types/forge-viewer/index.d.ts```
 
 4.	Prepare 2legged token for loading model in Forge Viewer
-    a.	Manually generate a token. Input token and URN to the file 
-    b.	OR, prepare a custom endpoint on your server for generating token on demand. Please enable ***Access-Control-Allow-Origin*** .The code below is a demo in my local server, which is based on the sample of [LearnForge tutorial](https://github.com/Autodesk-Forge/learn.forge.viewmodels/tree/nodejs)
+    a.	Manually generate a token by other tool. Input token and URN to the file [visual.ts line 11](/forgePowerbiView/src/visual.ts#L11)
+    b.	OR, prepare a custom endpoint on your server for generating token on demand. see [visual.ts line 8](/forgePowerbiView/src/visual.ts#L8) In the endpoint, please enable ***Access-Control-Allow-Origin*** .The code below is a demo in my local server, which is based on the sample of [LearnForge tutorial](https://github.com/Autodesk-Forge/learn.forge.viewmodels/tree/nodejs)
 
     ```
     // GET /api/forge/oauth/token - generates a public access token (required by the Forge viewer).
@@ -94,7 +98,7 @@ The distributed file ***PowerBI_ForgeViewer_Visual.pbiviz** will be generated at
  <p align="center"><img src="./help/package.png" width="800"></p>   
 
 
-6.	 Run the script below will start debug mode. Ensure the developer model is enabled with  your PowerBI account. Insert an instance of developer visual.  Select dbid from fields.. Similarly it will take some time for the custom visual to load the model in Viewer.
+6.	 Or, run the script below will start debug mode. Ensure the developer model is enabled with  your PowerBI account. Insert an instance of developer visual.  Select dbid from fields.. Similarly it will take some time for the custom visual to load the model in Viewer.
  ```
      pbiviz start
 ```
