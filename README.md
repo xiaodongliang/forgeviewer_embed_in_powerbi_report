@@ -66,7 +66,9 @@ This repository demonstrates how to embed Forge Viewer inside Power BI report by
         ```node_modules/@types/forge-viewer/index.d.ts```
 
 4.	Prepare 2legged token for loading model in Forge Viewer
+
     a.	Manually generate a token by other tool. Input token and URN to the file [visual.ts line 11](/forgePowerbiView/src/visual.ts#L11)
+    
     b.	OR, prepare a custom endpoint on your server for generating token on demand. see [visual.ts line 8](/forgePowerbiView/src/visual.ts#L8) In the endpoint, please enable ***Access-Control-Allow-Origin*** .The code below is a demo in my local server, which is based on the sample of [LearnForge tutorial](https://github.com/Autodesk-Forge/learn.forge.viewmodels/tree/nodejs)
 
     ```
