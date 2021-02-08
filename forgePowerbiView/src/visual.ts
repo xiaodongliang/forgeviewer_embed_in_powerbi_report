@@ -1,8 +1,14 @@
 module powerbi.extensibility.visual {
     "use strict";
     export class PowerBI_ForgeViewer_Visual implements IVisual {
-        private readonly DOCUMENT_URN: string = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6eGlhb2Rvbmctb2xkLXN2Zi10ZW1wb3JhcnktdGVzdC9hZHZhbmNlZC5ydnQ';
-        private ACCESS_TOKEN: string = null;  //hard coded or by your own endpoint
+        private readonly DOCUMENT_URN: string = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6cmF6ajRidjE5eGZtZTAyNWFzMmVhbGRnYm51dW9ubjYtbXlmaXJzdGFwcC9yYWNhZHZhbmNlZHNhbXBsZXByb2plY3QucnZ0';
+        
+        // if get token from your server
+        //private ACCESS_TOKEN: string = null;  
+        private MY_SERVER_ENDPOINT = '<your server endpoint to get token>' //e.g. 'https://xiaodong-forge-viewer-test.herokuapp.com/api/forge/oauth/token'
+        
+        // if hard coded the token
+        private ACCESS_TOKEN: string = '<hard-coded token (from other tool)>';  
 
         private target: HTMLElement;
         private pbioptions:VisualConstructorOptions;
@@ -22,15 +28,22 @@ module powerbi.extensibility.visual {
             this.target.innerHTML = '<div id="forge-viewer" ></div>';
 
             if (typeof document !== "undefined") {
-                this.getToken(); 
+
+                if(this.ACCESS_TOKEN != null){
+                    //hard-coded token, load the model directly
+                    this.initializeViewer("forge-viewer");  
+                }else{
+                    this.getToken(this.MY_SERVER_ENDPOINT); 
+                    //inside getToken callback, will load the model
+                }
             }
         }
 
-        private async getToken(): Promise<void> {
+        private async getToken(endpoint): Promise<void> {
             
             return new Promise<void>(res => {
                 $.ajax({
-                    url: 'https://xiaodong-forge-viewer-test.herokuapp.com/api/forge/oauth/token',
+                    url: endpoint,
 
                   }).done( res=> {
                     console.log('get token done!')
