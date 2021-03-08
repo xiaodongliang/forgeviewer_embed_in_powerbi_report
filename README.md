@@ -59,13 +59,15 @@ This repository demonstrates how to embed Forge Viewer inside Power BI report by
 
 3. Ensure to [create an SSL certificate](https://docs.microsoft.com/en-us/power-bi/developer/visuals/create-ssl-certificate)
 
-3.	Switch to the project [forgePowerbiView](./forgePowerbiView). Install the packages.
+4.	Switch to the project [forgePowerbiView](./forgePowerbiView). Install the packages.
 
-4. Two more functions of new version of Forge Viewer have not defined in the latest version of @types/forge-viewer.  Manually append them in the code below. you can  replace the default ts file by [upated-forge-viewer-index.d.ts](./upated-forge-viewer-index.d.ts)
+5. Two functions of new version of Forge Viewer were not defined in the old version of @types/forge-viewer (< v7.10). If you are working with the old @types/forge-viewer, please manually append them in the code below. you can also replace the default ts file by [upated-forge-viewer-index.d.ts](./upated-forge-viewer-index.d.ts)
 
         ```node_modules/@types/forge-viewer/index.d.ts```
 
-4.	Prepare 2legged token for loading model in Forge Viewer
+If you work with latest version of @types/forge-viewer (say v7.31.0), the step of #5 is not required. 
+
+6.	Prepare 2legged token for loading model in Forge Viewer
 
     a.	Manually generate a token by other tool. Input token and URN to the file [visual.ts line 11](/forgePowerbiView/src/visual.ts#L11)
     
