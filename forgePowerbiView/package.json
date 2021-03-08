@@ -5,7 +5,7 @@
     "powerbi-visuals-utils-dataviewutils": "1.2.0"
   },
   "devDependencies": {
-    "@types/forge-viewer": "^7.5.2",
+    "@types/forge-viewer": "^7.31.0",
     "@types/jquery": "^3.5.1",
     "@types/node": "12.0.0"
   }
