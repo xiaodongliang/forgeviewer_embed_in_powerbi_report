@@ -1,15 +1,16 @@
 module powerbi.extensibility.visual {
+
+    
     "use strict";
     export class PowerBI_ForgeViewer_Visual implements IVisual {
-        private readonly DOCUMENT_URN: string = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6cmF6ajRidjE5eGZtZTAyNWFzMmVhbGRnYm51dW9ubjYtbXlmaXJzdGFwcC9yYWNhZHZhbmNlZHNhbXBsZXByb2plY3QucnZ0';
+        private readonly DOCUMENT_URN: string = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6eGlhb2Rvbmctbjktc3ZmMi10ZXN0LWVtZWEvcmFjX2FkdmFuY2VkLXN2ZjEucnZ0';
         
         // if get token from your server
         //private ACCESS_TOKEN: string = null;  
         private MY_SERVER_ENDPOINT = '<your server endpoint to get token>' //e.g. 'https://xiaodong-forge-viewer-test.herokuapp.com/api/forge/oauth/token'
         
         // if hard coded the token
-        private ACCESS_TOKEN: string = '<hard-coded token (from other tool)>';  
-
+        private ACCESS_TOKEN: string = '<your hard-coded token>'
         private target: HTMLElement;
         private pbioptions:VisualConstructorOptions;
         private updateCount: number;
@@ -60,10 +61,12 @@ module powerbi.extensibility.visual {
             const viewerContainer = document.getElementById(placeHolderDOMid)
             //load Forge Viewer scripts js and style css
             await this.loadForgeViewerScriptAndStyle();
+            console.log('trying to load loadMyAwesomeExtension');
 
             const options = {
                 env: 'AutodeskProduction',
-                accessToken: this.ACCESS_TOKEN
+                accessToken: this.ACCESS_TOKEN,
+                extensions: []
             }
 
             var documentId = this.DOCUMENT_URN;
@@ -81,12 +84,17 @@ module powerbi.extensibility.visual {
                     this.forge_viewer.loadDocumentNode(doc, viewables, {}).then(i => {
                       console.log('document has been loaded') 
                       
-                      this.forge_viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT,res=>{
+                      this.forge_viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT,async res=>{
+                          
                           //GEOMETRY_LOADED_EVENT
                           console.log('GEOMETRY_LOADED_EVENT triggered!');
 
-                          console.log('dumpping dbIds...');
+                          //load custom extension
+                          await this.loadMyAwesomeExtension(); 
+                          //load built-in extensions of Forge.
+                          this.forge_viewer.loadExtension('Autodesk.DocumentBrowser');
 
+                          console.log('dumpping dbIds...'); 
                           this.forge_viewer.getObjectTree( tree => {
                             var leaves = [];
                             tree.enumNodeChildren(tree.getRootId(),  dbId=> {
@@ -94,12 +102,9 @@ module powerbi.extensibility.visual {
                                     leaves.push(dbId);
                                 }
                             }, true);
-                            console.log('DbId Array: ' + leaves);
-
+                            //console.log('DbId Array: ' + leaves); 
                             //possible to update PowerBI data source ??
-                            //SQL database / Push Data ...
-                            //see PowerBI community post:
-                            //
+                            //SQL database / Push Data ... ?
 
                          });  
                       })
@@ -111,9 +116,7 @@ module powerbi.extensibility.visual {
                             const dbId = res.dbIdArray[0];
                             console.log('Autodesk.Viewing.SELECTION_CHANGED_EVENT:'+dbId)
 
-                            //this.selectionMgr.select()
-
-                            
+                            //this.selectionMgr.select()  //experiment, not working..
                         }
                       }) 
                     });
@@ -123,24 +126,30 @@ module powerbi.extensibility.visual {
                 });
               }); 
 
-        }
-
-        /*private async loadForgeViewerScripts1(): Promise<void> {
-            //this will cause cross-regions error
-            return new Promise<void>(res => {
-                $.ajax({
-                    url: 'https://developer.api.autodesk.com/modelderivative/v2/viewers/viewer3D.min.js',
-                    dataType: "script"
-                  }).done( () => {
-                    console.log('ok')
-                    res();
-                  })
-            
-            })
-        } */
-
-
+        } 
         
+        private async loadMyAwesomeExtension(): Promise<void> {
+            return new Promise<void>((reslove,reject) => {
+                let extjs = document.createElement('script');
+                //input the src url of extension. ensure corb is enabled.
+                //e.g. this is a demo from Forge OSS signed url
+                extjs.src = "https://developer.api.autodesk.com/oss/v2/signedresources/b2f5afea-635f-4e10-835e-d7d4e39f2f57?region=US";
+                extjs.type = "text/javascript";
+
+                extjs.id = 'extjs';
+                document.body.appendChild(extjs);
+
+                extjs.onload = () => {
+                    console.info("load viewer extension js succeeded"); 
+                    this.forge_viewer.loadExtension('MyAwesomeExtension');
+                    reslove();
+                }; 
+                extjs.onerror = (err) => {
+                    console.info("load viewer extension js error:" +err ); 
+                    reject(err);
+                }; 
+            }) 
+        }
 
         private async loadForgeViewerScriptAndStyle(): Promise<void> {
 
@@ -177,28 +186,19 @@ module powerbi.extensibility.visual {
         public update(options: VisualUpdateOptions) {
 
             if(options.type == 4 ||options.type == 36 ) //resizing or moving
-                return;
- 
-            debugger;
+                return; 
+            debugger; 
 
+            //when the viewer has not been initialized
              if (!this.forge_viewer) {
                  return;
              }
-             console.log('update with VisualUpdateOptions') 
-
+             console.log('updating with VisualUpdateOptions') 
              const dbIds = options.dataViews[0].table.rows.map(r => 
                 <number>r[0].valueOf());
-             console.log('dbIds: '  +dbIds)
-
-             
-                
-             this.forge_viewer.showAll();
-
-             this.forge_viewer.impl.setGhostingBrightness(true); //for isolate effect 
+             console.log('selected dbIds: '  +dbIds)
+             this.forge_viewer.showAll(); 
              this.forge_viewer.isolate(dbIds);
- 
-             //this.settings = ForgeViewerVisual.parseSettings(options && options.dataViews && options.dataViews[0]);
-
         }
 
         private static parseSettings(dataView: DataView): VisualSettings {
@@ -213,5 +213,7 @@ module powerbi.extensibility.visual {
         public enumerateObjectInstances(options: EnumerateVisualObjectInstancesOptions): VisualObjectInstance[] | VisualObjectInstanceEnumerationObject {
             return VisualSettings.enumerateObjectInstances(this.settings || VisualSettings.getDefault(), options);
         }
+
+        
     }
 }
