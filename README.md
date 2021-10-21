@@ -59,15 +59,9 @@ This repository demonstrates how to embed Forge Viewer inside Power BI report by
 
 3. Ensure to [create an SSL certificate](https://docs.microsoft.com/en-us/power-bi/developer/visuals/create-ssl-certificate)
 
-4.	Switch to the project [forgePowerbiView](./forgePowerbiView). Install the packages.
+4.	Switch to the project [forgePowerbiView](./forgePowerbiView). Install the packages. 
 
-5. Two functions of new version of Forge Viewer were not defined in the old version of @types/forge-viewer (< v7.10). If you are working with the old @types/forge-viewer, please manually append them in the code below. you can also replace the default ts file by [upated-forge-viewer-index.d.ts](./upated-forge-viewer-index.d.ts)
-
-        ```node_modules/@types/forge-viewer/index.d.ts```
-
-If you work with latest version of @types/forge-viewer (say v7.31.0), the step of #5 is not required. 
-
-6.	Prepare 2legged token for loading model in Forge Viewer
+5.	Prepare 2legged token for loading model in Forge Viewer
 
     a.	Manually generate a token by other tool. Input token and URN to the file [visual.ts line 11](/forgePowerbiView/src/visual.ts#L11)
     
@@ -92,10 +86,16 @@ If you work with latest version of @types/forge-viewer (say v7.31.0), the step o
     });
     ```
 
-5.	build the project by the script below
+6.	build the project by the script below
     ```
      pbiviz package
     ```
+
+Note: if you want to use some latest methods of Forge Viewer, yet the typeScript class has not defined them, you may try to manually add them to **index.d.ts**. 
+
+        ```
+        node_modules/@types/forge-viewer/index.d.ts
+        ```
 
 The distributed file ***PowerBI_ForgeViewer_Visual.pbiviz** will be generated at [dist folder](./forgePowerbiView/dist). Load the visual package in Power BI visuals box. Insert one instance, select dbid from fields. It will take some time for the custom visual to load the model in Viewer.
 
