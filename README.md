@@ -1,3 +1,9 @@
+
+``diff
+- Update of July, 2024: Autodesk has open source visual card of Power BI of APS Viewer (it was called Endymion).  It allows you to integrate the Viewer into Microsoft Power BI and access model's metadata. The new repository has been available at https://github.com/autodesk-platform-services/aps-powerbi-tools. 
+```
+
+
 # Forge Viewer Embed in Power BI Report
 
 
